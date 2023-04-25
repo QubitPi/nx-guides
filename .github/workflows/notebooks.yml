@@ -4,10 +4,11 @@ on:
   workflow_call:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - master
+      - main
+      - master
 
 jobs:
   build:
