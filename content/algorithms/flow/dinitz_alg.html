@@ -1,0 +1,1292 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Dinitz’s algorithm and its applications &#8212; NetworkX Notebooks</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'content/algorithms/flow/dinitz_alg';</script>
+    <link rel="canonical" href="https://QubitPi.github.io/nx-guides/content/algorithms/flow/dinitz_alg.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Lowest Common Ancestor" href="../lca/LCA.html" />
+    <link rel="prev" title="Directed Acyclic Graphs &amp; Topological Sort" href="../dag/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/networkx_banner.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../../_static/networkx_banner.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+</ul></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">Algorithms</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../assortativity/correlation.html">Node assortativity coefficients and correlation measures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Dinitz’s algorithm and its applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lca/LCA.html">Lowest Common Ancestor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../euler/euler.html">Euler’s Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../generators/index.html">Graph Generators</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../generators/geometric.html">Geometric Generator Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators/sudoku.html">Sudoku and Graph coloring</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../exploratory_notebooks/facebook_notebook.html">Facebook Network Analysis</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/algorithms/flow/dinitz_alg.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides/edit/main/site/content/algorithms/flow/dinitz_alg.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/networkx/nx-guides/issues/new?title=Issue%20on%20page%20%2Fcontent/algorithms/flow/dinitz_alg.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/content/algorithms/flow/dinitz_alg.ipynb" target="_blank"
+   class="btn btn-sm btn-download-notebook-button dropdown-item"
+   title="Download notebook file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="../../../_sources/content/algorithms/flow/dinitz_alg.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Dinitz’s algorithm and its applications</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-flow-problem">Maximum flow problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formalization">Formalization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dinitz-s-algorithm">Dinitz’s algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-capacity-graph">Residual Capacity &amp; Graph</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#level-network">Level Network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmenting-path-flow">Augmenting Path &amp; Flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-flow-in-networkx">Maximum flow in NetworkX</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reductions-and-applications">Reductions and Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="dinitz-s-algorithm-and-its-applications">
+<h1>Dinitz’s algorithm and its applications<a class="headerlink" href="#dinitz-s-algorithm-and-its-applications" title="Permalink to this heading">#</a></h1>
+<p>In this notebook, we will introduce the <a class="reference external" href="https://en.wikipedia.org/wiki/Maximum_flow_problem">Maximum flow problem</a>
+and <a class="reference external" href="https://en.wikipedia.org/wiki/Dinic%27s_algorithm">Dinitz’s algorithm</a> <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>, which is implemented at
+<a class="reference external" href="https://github.com/networkx/networkx/blob/main/networkx/algorithms/flow/dinitz_alg.py">algorithms/flow/dinitz_alg.py</a>
+in NetworkX. We will also see how it can be used to solve some interesting problems.</p>
+<section id="maximum-flow-problem">
+<h2>Maximum flow problem<a class="headerlink" href="#maximum-flow-problem" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">PIL</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="motivation">
+<h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this heading">#</a></h3>
+<p>Let’s say you want to send your friend some data as soon as possible, but the only way
+of communication/sending data between you two is through a peer-to-peer network. An
+interesting thing about this peer-to-peer network is that it allows you to send data
+along the paths you specify with certain limits on the sizes of data per second that
+you can send between a pair of nodes in this network.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the example graph</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_gml</span><span class="p">(</span><span class="s2">&quot;data/example_graph.gml&quot;</span><span class="p">)</span>
+<span class="c1"># Extract info about node position from graph (for visualization)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)}</span>
+<span class="n">label_pos</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+<span class="n">label_pos</span><span class="p">[</span><span class="s2">&quot;s&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.15</span>
+<span class="n">label_pos</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.20</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">:</span> <span class="s2">&quot;You&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="s2">&quot;Friend&quot;</span><span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">min_source_margin</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">min_target_margin</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">label_pos</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="c1"># Spruce up the image with computer icons to represent the nodes</span>
+<span class="n">tr_figure</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="o">.</span><span class="n">transform</span>
+<span class="n">tr_axes</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">transFigure</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span><span class="o">.</span><span class="n">transform</span>
+<span class="n">icon_size</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()))</span> <span class="o">*</span> <span class="mf">0.015</span>
+<span class="n">icon_center</span> <span class="o">=</span> <span class="n">icon_size</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">icon</span> <span class="o">=</span> <span class="n">PIL</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;images/computer_black_144x144.png&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">:</span>
+    <span class="n">xf</span><span class="p">,</span> <span class="n">yf</span> <span class="o">=</span> <span class="n">tr_figure</span><span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+    <span class="n">xa</span><span class="p">,</span> <span class="n">ya</span> <span class="o">=</span> <span class="n">tr_axes</span><span class="p">((</span><span class="n">xf</span><span class="p">,</span> <span class="n">yf</span><span class="p">))</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">([</span><span class="n">xa</span> <span class="o">-</span> <span class="n">icon_center</span><span class="p">,</span> <span class="n">ya</span> <span class="o">-</span> <span class="n">icon_center</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">,</span> <span class="n">icon_size</span><span class="p">])</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/e8f3a3f418a11e44530849f0f395f718704d6f06242888ed26ab3ca9e5c54733.png" src="../../../_images/e8f3a3f418a11e44530849f0f395f718704d6f06242888ed26ab3ca9e5c54733.png" />
+</div>
+</div>
+<p>So how shall you plan the paths of the data packets to send them in the least amount
+of time?</p>
+<p>Note that here we can divide the data into small data packets and send it across the
+network and the receiver will be able to rearrange the data packets to reconstruct
+the original data.</p>
+</section>
+<section id="formalization">
+<h3>Formalization<a class="headerlink" href="#formalization" title="Permalink to this heading">#</a></h3>
+<p>So how can we model this problem in terms of graphs?</p>
+<p>Let’s say <span class="math notranslate nohighlight">\(N=(V, E)\)</span> represents this peer-to-peer network with <span class="math notranslate nohighlight">\(V\)</span> as the set of nodes
+where nodes are computers and <span class="math notranslate nohighlight">\(E\)</span> as the set of edges where edge <span class="math notranslate nohighlight">\(uv \in E\)</span> if there is
+a connection from node <span class="math notranslate nohighlight">\(u\)</span> to node <span class="math notranslate nohighlight">\(v\)</span> across which we can send data. There are also
+2 special nodes, the first one is you (node <span class="math notranslate nohighlight">\(s\)</span>) and the second one is your friend (node <span class="math notranslate nohighlight">\(t\)</span>). We also name them the <em><strong>source</strong></em> and <em><strong>sink</strong></em> nodes respectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;skyblue&quot;</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="s2">&quot;lightgray&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">label_pos</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/12258695685d14642ebe13e6dad5fd02008ab8afaffcb8b2639ce4ed02e48883.png" src="../../../_images/12258695685d14642ebe13e6dad5fd02008ab8afaffcb8b2639ce4ed02e48883.png" />
+</div>
+</div>
+<p>Now say that node <span class="math notranslate nohighlight">\(u\)</span> and node <span class="math notranslate nohighlight">\(v\)</span> are connected and the maximum data per second that
+you can send from node <span class="math notranslate nohighlight">\(u\)</span> to node <span class="math notranslate nohighlight">\(v\)</span> is <span class="math notranslate nohighlight">\(c_{uv}\)</span>, lets call this as capacity of the edge <span class="math notranslate nohighlight">\(uv\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">capacities</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">)}</span>
+
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">capacities</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">label_pos</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/b40ce6e13570ed83a7af7308c6fff4639f34104f7c89f6cf0fbc15fbe8b7e7cb.png" src="../../../_images/b40ce6e13570ed83a7af7308c6fff4639f34104f7c89f6cf0fbc15fbe8b7e7cb.png" />
+</div>
+</div>
+<p>So before go ahead and plan the paths on which we will be sending the data packets,
+we need some way to represent or plan on the network. Observe that any plan will have
+to take up some capacity of the edges, so we can represent the plan by the values of
+the capacity taken by it for each edge in E, let’s call the plan as <strong>flow</strong>. Formally,
+we can define flow as <span class="math notranslate nohighlight">\(f: E \to \mathbb{R}\)</span> i.e. a mapping from edges <span class="math notranslate nohighlight">\(E\)</span> to real numbers
+denoting that we are sending data at rate <span class="math notranslate nohighlight">\(f(uv)\)</span> through edge <span class="math notranslate nohighlight">\(uv\in E\)</span>.</p>
+<p>Note that for this plan to be a valid plan it must satisfy the following constraints</p>
+<ul class="simple">
+<li><p><strong>Capacity constraint:</strong>
+The data rate at which we are sending data from any node shouldn’t exceed its
+capacity, formally <span class="math notranslate nohighlight">\(f_{uv} \le c_{uv}\)</span></p></li>
+<li><p><strong>Conservation of flow:</strong>
+Rate at which data is sent to a node is same as the rate at which the node is sending
+data to other nodes, except for the source <span class="math notranslate nohighlight">\(s\)</span> and sink <span class="math notranslate nohighlight">\(t\)</span> nodes. Formally
+<span class="math notranslate nohighlight">\(\sum\limits_{u|(u,v) \in E}f_{u,v} = \sum\limits_{w|(v,w) \in E}f_{v,w} \)</span> for
+<span class="math notranslate nohighlight">\(v\in V\backslash \{s,t\}\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">check_valid_flow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">source_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+    <span class="n">H</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">flow</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">flow</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">capacity</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span>
+        <span class="n">H</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">capacity</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="c1"># Capacity constraint</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="o">&gt;</span> <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]:</span>
+            <span class="n">H</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;edgecolor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid flow: capacity constraint violated for edge (</span><span class="si">{</span><span class="n">u</span><span class="si">!r}</span><span class="s2">, </span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="c1"># Conservation of flow</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="n">source_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">}:</span>
+            <span class="n">incoming_flow</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="n">flow</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)]</span> <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">flow</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">predecessors</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">outgoing_flow</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+                <span class="n">flow</span><span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="n">o</span><span class="p">)]</span> <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span> <span class="ow">in</span> <span class="n">flow</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">math</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">incoming_flow</span><span class="p">,</span> <span class="n">outgoing_flow</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid flow: flow conservation violated at node </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">H</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+    <span class="k">return</span> <span class="n">H</span>
+
+
+<span class="k">def</span> <span class="nf">visualize_flow</span><span class="p">(</span><span class="n">flow_graph</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize flow returned by the `check_valid_flow` funcion.&quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+    <span class="c1"># Draw the full graph for reference</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Draw the example flow on top</span>
+    <span class="n">flow_nc</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;skyblue&quot;</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="n">flow_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;lightgrey&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">flow_graph</span>
+    <span class="p">]</span>
+    <span class="n">flow_ec</span> <span class="o">=</span> <span class="p">[</span><span class="n">flow_graph</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;edgecolor&quot;</span><span class="p">,</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">flow_graph</span><span class="o">.</span><span class="n">edges</span><span class="p">]</span>
+    <span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">lbl</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="n">flow_graph</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;label&quot;</span><span class="p">)}</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">flow_graph</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">flow_nc</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">flow_ec</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>example of valid flow:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_flow</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">):</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">):</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">):</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">):</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">):</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">):</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">):</span> <span class="mi">5</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">flow_graph</span> <span class="o">=</span> <span class="n">check_valid_flow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">example_flow</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visualize_flow</span><span class="p">(</span><span class="n">flow_graph</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/2c0a0a3ac5410bc885af0c7718eb0ec3c6fc1598d7a76394f3d12bf221b3beb1.png" src="../../../_images/2c0a0a3ac5410bc885af0c7718eb0ec3c6fc1598d7a76394f3d12bf221b3beb1.png" />
+</div>
+</div>
+<p>example of invalid flow:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_flow</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">):</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">):</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">):</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">):</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">):</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">):</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;l&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">):</span> <span class="mi">5</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">flow_graph</span> <span class="o">=</span> <span class="n">check_valid_flow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">example_flow</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Invalid flow: capacity constraint violated for edge (&#39;s&#39;, &#39;a&#39;)
+Invalid flow: flow conservation violated at node e
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visualize_flow</span><span class="p">(</span><span class="n">flow_graph</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/d5ba68088f1a20e5791526e7d0a6ce705f40e2adb1c54f5efcb2b6060f4369b5.png" src="../../../_images/d5ba68088f1a20e5791526e7d0a6ce705f40e2adb1c54f5efcb2b6060f4369b5.png" />
+</div>
+</div>
+<p>red color edges dont satisfy capacity constraint and red color nodes dont satisfy the
+conservation of flow</p>
+<p><em>So if we use this plan/flow to send data then at what rate will we be sending the data to friend?</em></p>
+<p>To answer this we need to observe that any data that the sink node <span class="math notranslate nohighlight">\(t\)</span> will receive will be
+from its neighbors so if we sum over the data rates from plan/flow from those neighbors to
+the sink node we shall get the total data rate at which <span class="math notranslate nohighlight">\(t\)</span> will be receiving the data.
+Formally we can say that the <strong>value of the flow</strong> is <span class="math notranslate nohighlight">\(|f|=\sum\limits_{u|(u,t) \in E}f_{u,t}\)</span>.
+Also note that since flow is conservative <span class="math notranslate nohighlight">\(|f|\)</span> would also be equal to <span class="math notranslate nohighlight">\(\sum\limits_{u|(s,u) \in E}f_{s,u}\)</span>.</p>
+<p>Remember our goal was to maximize the rate at which the data is being sent to our friend,
+which is the same as maximizing the flow value <span class="math notranslate nohighlight">\(|f|\)</span>.</p>
+<p>This is the definition of the <strong>Maximum Flow Problem</strong>.</p>
+</section>
+</section>
+<section id="dinitz-s-algorithm">
+<h2>Dinitz’s algorithm<a class="headerlink" href="#dinitz-s-algorithm" title="Permalink to this heading">#</a></h2>
+<p>Before understanding how Dinitz’s algorithm works and its steps let’s define some terms.</p>
+<section id="residual-capacity-graph">
+<h3>Residual Capacity &amp; Graph<a class="headerlink" href="#residual-capacity-graph" title="Permalink to this heading">#</a></h3>
+<p>If we send <span class="math notranslate nohighlight">\(f_{uv}\)</span> flow through edge <span class="math notranslate nohighlight">\(uv\)</span> with capacity <span class="math notranslate nohighlight">\(c_{uv}\)</span>, then we define residual
+capacity by <span class="math notranslate nohighlight">\(g_{uv}=c_{uv}-f_{uv}\)</span> and residual network by <span class="math notranslate nohighlight">\(N'\)</span> which only considers the
+edges of <span class="math notranslate nohighlight">\(N\)</span> if they have non-zero residual capacity.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">residual_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">flow</span><span class="p">):</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">flow</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">capacity</span> <span class="o">=</span> <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="o">&gt;</span> <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Flow </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> exceeds the capacity of edge </span><span class="si">{</span><span class="n">u</span><span class="si">!r}</span><span class="s2">-&gt;</span><span class="si">{</span><span class="n">v</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="n">H</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">f</span>
+        <span class="k">if</span> <span class="n">H</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span>
+            <span class="n">H</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">u</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">H</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="n">f</span><span class="p">,</span> <span class="n">etype</span><span class="o">=</span><span class="s2">&quot;rev&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">H</span>
+
+
+<span class="k">def</span> <span class="nf">draw_residual_graph</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Visualize residual graph returned by `residual_graph`.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ax</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Draw nodes</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+    <span class="c1"># Categorize edges by their capacity and whether they were added by</span>
+    <span class="c1"># residual_graph</span>
+    <span class="n">orig_edges</span><span class="p">,</span> <span class="n">zero_edges</span><span class="p">,</span> <span class="n">rev_edges</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">R</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;etype&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;rev&quot;</span><span class="p">:</span>
+            <span class="n">rev_edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">zero_edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">orig_edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+
+    <span class="c1"># Draw edges</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">orig_edges</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+        <span class="n">R</span><span class="p">,</span>
+        <span class="n">pos</span><span class="p">,</span>
+        <span class="n">edgelist</span><span class="o">=</span><span class="n">rev_edges</span><span class="p">,</span>
+        <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;goldenrod&quot;</span><span class="p">,</span>
+        <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=0.2&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+        <span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">zero_edges</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s2">&quot;lightgrey&quot;</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Label edges by capacity</span>
+    <span class="n">rv</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">rev_edges</span><span class="p">)</span>
+    <span class="n">fwd_caps</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">R</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rv</span><span class="p">}</span>
+    <span class="n">rev_caps</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">c</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">R</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">rv</span><span class="p">}</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">fwd_caps</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="mf">0.667</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span>
+        <span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">rev_caps</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="mf">0.667</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">&quot;goldenrod&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>example flow:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">example_flow</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">):</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">):</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;i&quot;</span><span class="p">):</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">):</span> <span class="mi">15</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">visualize_flow</span><span class="p">(</span><span class="n">check_valid_flow</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">example_flow</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/aa5523f255a9cbf5aa270ffc77c7432258c014c3f1345250cc00a6762957e742.png" src="../../../_images/aa5523f255a9cbf5aa270ffc77c7432258c014c3f1345250cc00a6762957e742.png" />
+</div>
+</div>
+<p>This is the residual network for the flow shown above:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">residual_graph</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">example_flow</span><span class="p">)</span>
+<span class="n">draw_residual_graph</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/f9429e46be9cd8bf7b8d6c743ad55b56f18d61bd685e7974ccdfdcc085287671.png" src="../../../_images/f9429e46be9cd8bf7b8d6c743ad55b56f18d61bd685e7974ccdfdcc085287671.png" />
+</div>
+</div>
+<p>Note: In residual network we consider both the <span class="math notranslate nohighlight">\(uv\)</span> and <span class="math notranslate nohighlight">\(vu\)</span> edges if any of them is in <span class="math notranslate nohighlight">\(N\)</span></p>
+</section>
+<section id="level-network">
+<h3>Level Network<a class="headerlink" href="#level-network" title="Permalink to this heading">#</a></h3>
+<p>The level network is a subgraph of the residual network which we get when we apply
+<a class="reference external" href="https://en.wikipedia.org/wiki/Breadth-first_search">BFS</a> from source node <span class="math notranslate nohighlight">\(s\)</span>
+considering only the edges for which we have <span class="math notranslate nohighlight">\(c_{uv}-f_{uv}&gt;0\)</span> in the residual network
+and divide the nodes into levels then we only consider the edges to be in the level
+network <span class="math notranslate nohighlight">\(L\)</span> which connect nodes of 2 different levels</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mapping between node level and color for visualization</span>
+<span class="n">level_colors</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;aqua&quot;</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;lightgreen&quot;</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;yellow&quot;</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;orange&quot;</span><span class="p">,</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;lightpink&quot;</span><span class="p">,</span>
+    <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;violet&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">level_bfs</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">source_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;BFS to construct the level network from residual network for given flow.&quot;&quot;&quot;</span>
+    <span class="n">parents</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+    <span class="n">queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">([</span><span class="n">source_node</span><span class="p">])</span>
+    <span class="n">level</span><span class="p">[</span><span class="n">source_node</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">target_node</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">R</span><span class="o">.</span><span class="n">successors</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">parents</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
+                <span class="n">level</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">level</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parents</span><span class="p">,</span> <span class="n">level</span>
+
+
+<span class="k">def</span> <span class="nf">draw_level_network</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Draw nodes</span>
+    <span class="n">nodelist</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">level</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">background</span><span class="p">:</span>
+        <span class="n">level_nc</span> <span class="o">=</span> <span class="s2">&quot;lightgrey&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">level_nc</span> <span class="o">=</span> <span class="p">[</span><span class="n">level_colors</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">level</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+        <span class="n">level_nc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">level_nc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;skyblue&quot;</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">nodelist</span><span class="o">=</span><span class="n">nodelist</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">level_nc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">background</span><span class="p">:</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+    <span class="c1"># Draw edges</span>
+    <span class="n">fwd_edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parents</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">fwd_edges</span><span class="p">}</span>
+    <span class="n">ec</span> <span class="o">=</span> <span class="s2">&quot;lightgrey&quot;</span> <span class="k">if</span> <span class="n">background</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">fwd_edges</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">ec</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">background</span><span class="p">:</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="mf">0.667</span><span class="p">)</span>
+
+    <span class="n">rev_edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parents</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">rev_edges</span><span class="p">}</span>
+    <span class="n">ec</span> <span class="o">=</span> <span class="s2">&quot;lightgrey&quot;</span> <span class="k">if</span> <span class="n">background</span> <span class="k">else</span> <span class="s2">&quot;goldenrod&quot;</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span>
+        <span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">rev_edges</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=0.2&quot;</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">ec</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">background</span><span class="p">:</span>
+        <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span>
+            <span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="mf">0.667</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s2">&quot;goldenrod&quot;</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">parents</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="n">level_bfs</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">example_flow</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">)</span>
+<span class="n">draw_level_network</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/7d7a45289beb15b01ebc36282c08209b6d68d2a7f34338462f9f2defd68b3ec2.png" src="../../../_images/7d7a45289beb15b01ebc36282c08209b6d68d2a7f34338462f9f2defd68b3ec2.png" />
+</div>
+</div>
+<p>Note that if sink node <span class="math notranslate nohighlight">\(t\)</span> is not reachable from the source node <span class="math notranslate nohighlight">\(s\)</span> that means that no
+more flow can be pushed through the residual network.</p>
+</section>
+<section id="augmenting-path-flow">
+<h3>Augmenting Path &amp; Flow<a class="headerlink" href="#augmenting-path-flow" title="Permalink to this heading">#</a></h3>
+<p>An <em>augmenting path</em> <span class="math notranslate nohighlight">\(P\)</span> is a path from source node <span class="math notranslate nohighlight">\(s\)</span> to sink node <span class="math notranslate nohighlight">\(t\)</span> such that all
+the edges on the path have positive residual capacity i.e. <span class="math notranslate nohighlight">\(g_{uv}&gt;0\)</span> for <span class="math notranslate nohighlight">\(uv \in P\)</span>.
+An <em>augmenting flow</em> <span class="math notranslate nohighlight">\(\alpha\)</span> for the path <span class="math notranslate nohighlight">\(P\)</span> is the minimum value of the residual
+flow across all the edges of <span class="math notranslate nohighlight">\(P\)</span>. i.e. <span class="math notranslate nohighlight">\(\alpha = min\{g_{uv}, uv \in P\}\)</span>.</p>
+<p>And by augmenting the flow along path <span class="math notranslate nohighlight">\(P\)</span> we mean that reduce the residual capacities
+of the edges in path <span class="math notranslate nohighlight">\(P\)</span> by <span class="math notranslate nohighlight">\(\alpha\)</span> which will leave at least one of the edges on the
+residual network with zero residual capacity.</p>
+<p>We find augmenting paths by applying <a class="reference external" href="https://en.wikipedia.org/wiki/Depth-first_search">DFS</a>
+on the Level network <span class="math notranslate nohighlight">\(L\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">aug_path_dfs</span><span class="p">(</span><span class="n">parents</span><span class="p">,</span> <span class="n">flow</span><span class="p">,</span> <span class="n">source_node</span><span class="p">,</span> <span class="n">target_node</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a path using DFS starting from the target_node&quot;&quot;&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">target_node</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">max</span><span class="p">(</span><span class="n">flow</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>  <span class="c1"># Initialize flow to large value</span>
+    <span class="k">while</span> <span class="n">u</span> <span class="o">!=</span> <span class="n">source_node</span><span class="p">:</span>
+        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="n">u</span><span class="p">]</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">R</span><span class="o">.</span><span class="n">pred</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">flow</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source_node</span><span class="p">)</span>
+    <span class="c1"># Augment the flow along the path found</span>
+    <span class="k">return</span> <span class="n">path</span><span class="p">,</span> <span class="n">f</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Augmenting path before augmenting:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span><span class="p">,</span> <span class="n">min_resid_flow</span> <span class="o">=</span> <span class="n">aug_path_dfs</span><span class="p">(</span><span class="n">parents</span><span class="p">,</span> <span class="n">example_flow</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">draw_level_network</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Level graph in the background</span>
+<span class="n">nc</span> <span class="o">=</span> <span class="p">[</span><span class="n">level_colors</span><span class="p">[</span><span class="n">level</span><span class="p">[</span><span class="n">n</span><span class="p">]]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">path</span><span class="p">]</span>
+<span class="n">el</span> <span class="o">=</span> <span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(</span><span class="n">path</span><span class="p">)]</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">nodelist</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">edgelist</span><span class="o">=</span><span class="n">el</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">nc</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">edgelabels</span> <span class="o">=</span> <span class="p">{(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">el</span><span class="p">}</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edgelabels</span><span class="p">,</span> <span class="n">label_pos</span><span class="o">=</span><span class="mf">0.667</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/fd7040636ae2ea856710eab2419fd5ae87a093f5ad245c14cf4c314345a87d47.png" src="../../../_images/fd7040636ae2ea856710eab2419fd5ae87a093f5ad245c14cf4c314345a87d47.png" />
+</div>
+</div>
+<p>Augmenting path after augmenting:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply the minimum flow along the augmenting path</span>
+<span class="n">aug_flow</span> <span class="o">=</span> <span class="p">{(</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">):</span> <span class="n">min_resid_flow</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">pairwise</span><span class="p">(</span><span class="n">path</span><span class="p">)}</span>
+
+<span class="c1"># Visualize the augmented flow along the path</span>
+<span class="n">draw_level_network</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">aug_path</span> <span class="o">=</span> <span class="n">residual_graph</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">subgraph</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">aug_flow</span><span class="p">)</span>
+
+<span class="c1"># Node ordering in the subgraph can be different than `path`</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">aug_path</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">level_colors</span><span class="p">[</span><span class="n">level</span><span class="p">[</span><span class="n">n</span><span class="p">]]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+<span class="n">node_colors</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;s&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="n">node_colors</span><span class="p">[</span><span class="n">nodes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&quot;t&quot;</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;skyblue&quot;</span>
+
+<span class="n">draw_residual_graph</span><span class="p">(</span><span class="n">aug_path</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/faa8aef1cba7a64a8fe98505a549452b471f5bf7c59afdae0cae35fdca01a11c.png" src="../../../_images/faa8aef1cba7a64a8fe98505a549452b471f5bf7c59afdae0cae35fdca01a11c.png" />
+</div>
+</div>
+<p>Resulting new residual Network:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">residual_graph</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">aug_flow</span><span class="p">)</span>
+
+<span class="c1"># Original color scheme for residual graph</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;skyblue&quot;</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="s2">&quot;lightgray&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">R</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
+<span class="n">draw_residual_graph</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/804aafc70c6a1d494dbbd215a02f02897fb715374ef374a7842010c2a8aa05c6.png" src="../../../_images/804aafc70c6a1d494dbbd215a02f02897fb715374ef374a7842010c2a8aa05c6.png" />
+</div>
+</div>
+<p>Each of the above steps plays a role in Dinitz’s algorithm for finding the
+maximum flow in a network, summarized below.</p>
+</section>
+<section id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Initialize a flow with zero value, <span class="math notranslate nohighlight">\(f_{uv}=0\)</span></p></li>
+<li><p>Construct a residual network  <span class="math notranslate nohighlight">\(N'\)</span> from that flow</p></li>
+<li><p>Find the level network <span class="math notranslate nohighlight">\(L\)</span> using BFS, if <span class="math notranslate nohighlight">\(t\)</span> is not in the level network then break and
+output the flow</p></li>
+<li><p>Find an augmenting path <span class="math notranslate nohighlight">\(P\)</span> in level network <span class="math notranslate nohighlight">\(L\)</span></p></li>
+<li><p>Augment the flow along the edges of path <span class="math notranslate nohighlight">\(P\)</span> which will give a new residual network</p></li>
+<li><p>Repeat from point 3 with new residual network <span class="math notranslate nohighlight">\(N'\)</span></p></li>
+</ol>
+</section>
+</section>
+<section id="maximum-flow-in-networkx">
+<h2>Maximum flow in NetworkX<a class="headerlink" href="#maximum-flow-in-networkx" title="Permalink to this heading">#</a></h2>
+<p>In the previous section, we decomposed the Dinitz algorithm into smaller steps
+to better understand the algorithm as a whole.
+In practice however, there’s no need to implement all these steps yourself!
+NetworkX provides an implementation of Dinitz’s algorithm:
+<a class="reference external" href="https://networkx.org/documentation/latest/reference/algorithms/generated/networkx.algorithms.flow.dinitz.html">nx.flow.dinitz</a>.
+<code class="docutils literal notranslate"><span class="pre">nx.flow.dinitz</span></code> includes several features in addition to those described above.
+For example, the <code class="docutils literal notranslate"><span class="pre">cutoff</span></code> keyword argument can be used to prematurely terminate
+the Dinitz algorithm once the desired flow value is reached.</p>
+<p>Let’s try out NetworkX’s implementation of Dinitz’s algorith on our example
+network, <code class="docutils literal notranslate"><span class="pre">G</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Maximum flow values to find. Note the final value of `None` which indicates</span>
+<span class="c1"># the algorithm should run to completion, finding the true maximum flow</span>
+<span class="n">cutoff_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;skyblue&quot;</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;t&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="s2">&quot;lightgray&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cutoff_list</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()):</span>
+    <span class="c1"># calculating the maximum flow with the cutoff value</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">dinitz</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;t&quot;</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">cutoff</span><span class="p">)</span>
+
+    <span class="c1"># coloring and labeling edges depending on if they have non-zero flow value or not</span>
+    <span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lightgray&quot;</span> <span class="k">if</span> <span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;flow&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;black&quot;</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">]</span>
+    <span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s1">&#39;flow&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s1">&#39;capacity&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span>
+        <span class="k">if</span> <span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;flow&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="p">}</span>
+
+    <span class="c1"># drawing the network</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edge_labels</span><span class="p">(</span>
+        <span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">edge_labels</span><span class="o">=</span><span class="n">edge_labels</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">14</span>
+    <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Cutoff value = </span><span class="si">{</span><span class="n">cutoff</span><span class="si">}</span><span class="s2">; Max Flow = </span><span class="si">{</span><span class="n">R</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s1">&#39;flow_value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/b57787abe826821eb7f75067b8c6fb319eba0535d27f1f1dd9a7b76d2c5d3f92.png" src="../../../_images/b57787abe826821eb7f75067b8c6fb319eba0535d27f1f1dd9a7b76d2c5d3f92.png" />
+</div>
+</div>
+<p>Note: Iteration are stopped if the maximum flow found so far exceeds the cutoff value</p>
+</section>
+<section id="reductions-and-applications">
+<h2>Reductions and Applications<a class="headerlink" href="#reductions-and-applications" title="Permalink to this heading">#</a></h2>
+<p>There are many other problems which can be reduced to Maximum flow problem, for example:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Matching_(graph_theory)">Maximum Bipartite Matching</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Assignment_problem">Assignment Problem</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Transportation_theory_(mathematics)">Transportation Problem</a></p></li>
+</ul>
+<p>and many others.</p>
+<p>Note that even though Dinitz works in <span class="math notranslate nohighlight">\(O(n^2m)\)</span> strongly polynomial time, i.e. to say it
+doesn’t depend on the value of flow. It is noteworthy that its performance of bipartite
+graphs is especially fast being <span class="math notranslate nohighlight">\(O(\sqrt n m)\)</span> time, where <span class="math notranslate nohighlight">\(n = |V|\)</span> &amp; <span class="math notranslate nohighlight">\(m = |E|\)</span>.</p>
+<p>Let’s consider the example of shipping packages from warehouse to customers through some
+intermediate shipping points, and we can only ship limited number of packages through
+an intermediate shipping point in a day.</p>
+<p>So how to assign intermediate shipping point to customer so that maximum number of
+packages are shipped in a day?</p>
+<p><img alt="image:shipping problem eg" src="../../../_images/shipping-problem.png" /></p>
+<p>Number below each intermediate shipping point is the maximum number of shipping that
+it can do in a day, and if edge connects an intermdiate shipping point and a customer
+only then we can send the package from that shipping point to that customer.</p>
+<p>Note that the warehouse node is named as <span class="math notranslate nohighlight">\(W\)</span>, intermediate shipping points as
+<span class="math notranslate nohighlight">\(lw1, lw2, lw3\)</span>, and customers as <span class="math notranslate nohighlight">\(c1,c2...c20\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load data</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">read_gml</span><span class="p">(</span><span class="s2">&quot;data/shipping_graph.gml&quot;</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="s2">&quot;pos&quot;</span><span class="p">)}</span>
+
+<span class="c1"># drawing the loaded graph</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;skyblue&quot;</span> <span class="k">if</span> <span class="n">u</span> <span class="o">==</span> <span class="s2">&quot;W&quot;</span> <span class="k">else</span> <span class="s2">&quot;lightgray&quot;</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">B</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">,</span> <span class="n">with_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arrowsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">800</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/44eb84181efad73acca55b690d870c7e6d5684f9d16a83e2c583d2df8df464ff.png" src="../../../_images/44eb84181efad73acca55b690d870c7e6d5684f9d16a83e2c583d2df8df464ff.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># maximum shipping capacities</span>
+<span class="p">{</span><span class="n">u</span><span class="p">:</span> <span class="n">B</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="s2">&quot;maximum_shippings&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;lw1&quot;</span><span class="p">,</span> <span class="s2">&quot;lw2&quot;</span><span class="p">,</span> <span class="s2">&quot;lw3&quot;</span><span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lw1&#39;: 8, &#39;lw2&#39;: 5, &#39;lw3&#39;: 6}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s add a pseudo node <span class="math notranslate nohighlight">\(T\)</span> denoting the ultimate sink node and add edges from
+<span class="math notranslate nohighlight">\(ci \to T\)</span>, <span class="math notranslate nohighlight">\(i\in\{1,2,...,20\}\)</span>. Note that shipping any more than the maximum
+number of packages that any of <span class="math notranslate nohighlight">\(lwi\)</span>, <span class="math notranslate nohighlight">\(i\in\{1,2,3\}\)</span> can ship on that day is useless.
+So we can transfer that maximum number of shipping to a maximum capacity of the
+edges <span class="math notranslate nohighlight">\(W\to lwi\)</span>, <span class="math notranslate nohighlight">\(i\in\{1,2,3\}\)</span> and for all other edges, we can assign its capacity
+as 1 we only need to do one shipment per customer.</p>
+<p>Note: We have already assigned the position to node <span class="math notranslate nohighlight">\(T\)</span> in <code class="docutils literal notranslate"><span class="pre">pos</span></code> which was loaded earlier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># adding node T and edges to T from c1,c2,...c20</span>
+<span class="n">B</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="n">pos</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.97</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">B</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">((</span><span class="sa">f</span><span class="s2">&quot;c</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">))</span>
+
+<span class="c1"># adding capacities from W to lw1, lw2, lw3</span>
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;lw1&quot;</span><span class="p">,</span> <span class="s2">&quot;lw2&quot;</span><span class="p">,</span> <span class="s2">&quot;lw3&quot;</span><span class="p">]:</span>
+    <span class="n">B</span><span class="p">[</span><span class="s2">&quot;W&quot;</span><span class="p">][</span><span class="n">u</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="s2">&quot;maximum_shippings&quot;</span><span class="p">]</span>
+
+<span class="c1"># adding capacities as 1 for all other edges except edges from W</span>
+<span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">u</span> <span class="o">!=</span> <span class="s2">&quot;W&quot;</span><span class="p">:</span>
+        <span class="n">B</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;capacity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># assign colors and labels to nodes based on their type</span>
+<span class="n">node_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;skyblue&quot;</span> <span class="k">if</span> <span class="n">u</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;W&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="s2">&quot;lightgray&quot;</span> <span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
+
+<span class="c1"># calculating the maximum flow with the cutoff value</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">dinitz</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="s2">&quot;W&quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">capacity</span><span class="o">=</span><span class="s2">&quot;capacity&quot;</span><span class="p">)</span>
+
+<span class="c1"># coloring and labeling edges depending on if they have non-zero flow value or not</span>
+<span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0.8&quot;</span> <span class="k">if</span> <span class="n">R</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">v</span><span class="p">][</span><span class="s2">&quot;flow&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;0&quot;</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">B</span><span class="o">.</span><span class="n">edges</span><span class="p">]</span>
+
+<span class="c1"># drawing the network</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="n">node_colors</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">pos</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Max Flow = </span><span class="si">{</span><span class="n">R</span><span class="o">.</span><span class="n">graph</span><span class="p">[</span><span class="s1">&#39;flow_value&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/438f16173e9dd9ba313d2b1b71a28ef24fcf25fa4ee08ef84165eccc69d67fae.png" src="../../../_images/438f16173e9dd9ba313d2b1b71a28ef24fcf25fa4ee08ef84165eccc69d67fae.png" />
+</div>
+</div>
+<p>Above we can see a matching of intermediate shipping points and customers which
+gives the maximum shipping in a day.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Dinitz’ Algorithm: The Original Version and Even’s Version. 2006. Yefim Dinitz.
+In Theoretical Computer Science. Lecture Notes in Computer Science.
+Volume 3895. pp 218-240. <a class="reference external" href="https://doi.org/10.1007/11685654_10">https://doi.org/10.1007/11685654_10</a></p>
+</aside>
+</aside>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../dag/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Directed Acyclic Graphs &amp; Topological Sort</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../lca/LCA.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lowest Common Ancestor</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-flow-problem">Maximum flow problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formalization">Formalization</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dinitz-s-algorithm">Dinitz’s algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#residual-capacity-graph">Residual Capacity &amp; Graph</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#level-network">Level Network</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#augmenting-path-flow">Augmenting Path &amp; Flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm">Algorithm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-flow-in-networkx">Maximum flow in NetworkX</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reductions-and-applications">Reductions and Applications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By NetworkX developers
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022, NetworkX developers.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
