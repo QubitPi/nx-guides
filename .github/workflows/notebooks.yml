@@ -1,12 +1,14 @@
 name: Testing notebooks
 
 on:
+  workflow_call:
   push:
     branches:
-    - main
+      - main
   pull_request:
     branches:
-    - main
+      - main
+      - master
   schedule:
     - cron: '0 5 * * 1'
   workflow_dispatch:
