@@ -53,7 +53,7 @@ In addition, $P(v)$ represents a property for each node $v$.
 
 Let the property $P(v)$ take $P[0],P[1],...P[k-1]$ distinct values on the network,
 then the **mixing matrix** is matrix $M$ such that $M[i][j]$ represents the number of edges from
-nodes with property $P[i]$ to $P[j]$.
+nodes with property $P[i]$ to nodes with property $P[j]$.
 We can normalize mixing matrix by diving by total number of ordered edges i.e.
 $ e = \frac{M}{|E|}$.
 
@@ -67,7 +67,7 @@ $b[i]=$ proportion of edges $(u,v)$ such that $P(v)=P[i]$
 
 $$ b[i] = \sum\limits_{j}e[j][i]$$
 
-in Python code it would look something like `a = e.sum(axis=0)` and `b = e.sum(axis=1)`
+In Python code it would look something like `a = e.sum(axis=0)` and `b = e.sum(axis=1)`
 
 Finally, let $\sigma_a$ and $\sigma_b$ represent the standard deviation of
 $\{\ P[i]\cdot a[i]\ |\ i \in 0...k-1\}$ and $\{ P[i]\cdot b[i]\ |\ i \in 0...k-1\}$
@@ -261,6 +261,6 @@ are drawn.
 
 +++
 
-[^1]: M. E. J. Newman, Mixing patterns in networks <https://doi.org/10.1103/PhysRevE.67.026126>
+[^1]: M. E. J. Newman, Mixing patterns in networks <https://arxiv.org/abs/cond-mat/0209450>
 
 [^2]: Foster, J.G., Foster, D.V., Grassberger, P. & Paczuski, M. Edge direction and the structure of networks <https://doi.org/10.1073/pnas.0912671107>
