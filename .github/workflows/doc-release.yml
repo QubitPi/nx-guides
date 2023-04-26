@@ -1,0 +1,48 @@
+# Copyright (c) Jiaqi Liu.
+---
+name: Documentation Release
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    uses: ./.github/workflows/notebooks.yml
+    secrets: inherit
+
+  deploy-documentation:
+    name: Deploy Documentation to GitHub Pages
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+
+      - name: Install Graphviz
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz graphviz-dev
+
+      - name: Install Python dependencies
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install --upgrade wheel setuptools pip
+          pip install -r requirements.txt
+
+      - name: Build site
+        run: |
+          source venv/bin/activate
+          make -C site/ SPHINXOPTS="-nWT --keep-going" html
+
+      - name: Deploy docs to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: site/_build/html
+          user_name: QubitPi
+          user_email: jack20220723@gmail.com
