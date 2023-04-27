@@ -140,7 +140,7 @@ between nodes that are within the maximum connection distance, $R$, to better mo
 real-world systems where node proximity does not necessarily guarantee a
 connection between "close" nodes.
 In Soft Random Geometric Graphs, the probability  of connection between nodes $i$
-and $j$ is a function of their distance, $d_{ij}, if $d_{ij} \leq R$.
+and $j$ is a function of their distance, $d_{ij}$, if $d_{ij} \leq R$.
 Otherwise, they are disconnected [^7].
 
 $$ E_{ij} \propto P(d_{ij}) \textrm{ if } d_{ij} \leq R $$
@@ -344,18 +344,18 @@ for thresh, ax in zip(thresholds, axes):
 fig.tight_layout()
 ```
 
-[^1]: Spatial Networks <https://doi.org/10.1016/j.physrep.2010.11.002>
+[^1]: Spatial Networks <https://arxiv.org/abs/1010.0302>
 
-[^2]: Random Geometric Graphs <https://doi.org/10.1103/PhysRevE.66.016121>
+[^2]: Random Geometric Graphs <https://arxiv.org/abs/cond-mat/0203026>
 
 [^3]: Unit Disk Graphs <https://doi.org/10.1016/0012-365X(90)90358-O>
 
-[^4]: Waxman Graphs <https://doi.org/10.1109/49.12889>
+[^4]: Waxman Graphs <https://openscholarship.wustl.edu/cgi/viewcontent.cgi?article=1796&context=cse_research>
 
 [^6]: Threshold Graphs - <https://doi.org/10.37236/219>
 
 [^7]: Soft Geometric Random Graphs - <https://doi.org/10.1214/15-AAP1110>
 
-[^8]: Geometric Threshold Graphs - <https://doi.org/10.1103/PhysRevE.71.036108>
+[^8]: Geometric Threshold Graphs - <https://arxiv.org/abs/cond-mat/0409378>
 
 [^9]: Thresholded Random Geometric Graphs - <http://hdl.handle.net/2117/111425>
