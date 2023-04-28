@@ -23,7 +23,7 @@ language_info:
 ---
 
 # Facebook Network Analysis
-This notebook contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found in the [stanford website](http://snap.stanford.edu/data/ego-Facebook.html). Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:
+This section contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found in the [stanford website](http://snap.stanford.edu/data/ego-Facebook.html). Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:
 * Each node represents an anonymized facebook user that belongs to one of those ten friends lists.
 * Each edge corresponds to the friendship of two facebook users that belong to this network. In other words, two users must become friends on facebook in order for them to be connected in the particular network.
 
@@ -33,8 +33,7 @@ Note: Nodes $0, 107, 348, 414, 686, 698, 1684, 1912, 3437, 3980$ are the ones wh
 
 * Now, the necessary libraries are imported
 
-```{code-cell} ipython3
-%matplotlib inline
+```{code-cell} python
 import pandas as pd
 import numpy as np
 import networkx as nx
@@ -44,19 +43,18 @@ from random import randint
 
 * The edges are loaded from the `data` folder and saved in a dataframe. Each edge is a new row and for each edge there is a `start_node` and an `end_node` column
 
-```{code-cell} ipython3
+```{code-cell} python
 facebook = pd.read_csv(
-    "data/facebook_combined.txt.gz",
+    "facebook_combined.txt.gz",
     compression="gzip",
     sep=" ",
     names=["start_node", "end_node"],
 )
-facebook
 ```
 
 * The graph is created from the `facebook` dataframe of the edges:
 
-```{code-cell} ipython3
+```{code-cell} python
 G = nx.from_pandas_edgelist(facebook, "start_node", "end_node")
 ```
 
@@ -70,11 +68,11 @@ Since we don't have any real sense of structure in the data, let's start by
 viewing the graph with `random_layout`, which is among the fastest of the layout
 functions.
 
-```{code-cell} ipython3
-fig, ax = plt.subplots(figsize=(15, 9))
-ax.axis("off")
+```{code-cell} python
+plt.axis("off")
 plot_options = {"node_size": 10, "with_labels": False, "width": 0.15}
-nx.draw_networkx(G, pos=nx.random_layout(G), ax=ax, **plot_options)
+nx.draw_networkx(G, pos=nx.random_layout(G), **plot_options)
+plt.show();
 ```
 
 The resulting image is... not very useful. Graph visualizations of this kind
@@ -94,12 +92,15 @@ used in the `spring_layout` function to reduce the computation time.
 We will also save the computed layout so we can use it for future
 visualizations.
 
-```{code-cell} ipython3
+```{code-cell} python
 pos = nx.spring_layout(G, iterations=15, seed=1721)
-fig, ax = plt.subplots(figsize=(15, 9))
-ax.axis("off")
-nx.draw_networkx(G, pos=pos, ax=ax, **plot_options)
+plt.axis("off")
+plot_options = {"node_size": 10, "with_labels": False, "width": 0.15}
+nx.draw_networkx(G, pos=pos, **plot_options)
 ```
+
+> Note that we've defined a positioning function called `pos` and replaced the `nx.random_layout(G)` positioning with
+> it
 
 This visualization is much more useful than the previous one! Already we can
 glean something about the structure of the network; for example, many of the
@@ -112,22 +113,23 @@ network clustering [later in the analysis](#clustering-effects)
 ## Basic topological attributes
 * Total number of nodes in network:
 
-```{code-cell} ipython3
-G.number_of_nodes()
+```{code-cell} python
+print(G.number_of_nodes())
 ```
 
 * Total number of edges:
 
-```{code-cell} ipython3
-G.number_of_edges()
+```{code-cell} python
+print(G.number_of_edges())
 ```
 
 Also, the average degree of a node can be seen. 
 * On average, a node is connected to almost 44 other nodes, also known as neighbors of the node. 
-* This has been calculated by creating a list of all the degrees of the nodes and using `numpy.array` to find the mean of the created list.
+* This has been calculated by [creating a list of all the degrees of the nodes][Graph.degree()] and using `numpy.array` 
+  to find the mean of the created list.
 
-```{code-cell} ipython3
-np.mean([d for _, d in G.degree()])
+```{code-cell} python
+print(np.mean([d for _, d in G.degree()]))
 ```
 
 There are many interesting properties related to the distribution of *paths*
@@ -601,3 +603,5 @@ nx.draw_networkx(
 [^1]: [Semi-synchronous label propagation](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.label_propagation.label_propagation_communities.html#networkx.algorithms.community.label_propagation.label_propagation_communities)
 
 [^2]: [Asynchronous fluid communities algorithm](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.asyn_fluid.asyn_fluidc.html#networkx.algorithms.community.asyn_fluid.asyn_fluidc)
+
+[Graph.degree()]: https://qubitpi.github.io/networkx/reference/classes/generated/networkx.Graph.degree.html
