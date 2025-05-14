@@ -521,7 +521,7 @@ In addition, <span class="math notranslate nohighlight">\(P(v)\)</span> represen
 <h4>Mixing matrix<a class="headerlink" href="#mixing-matrix" title="Link to this heading">#</a></h4>
 <p>Let the property <span class="math notranslate nohighlight">\(P(v)\)</span> take <span class="math notranslate nohighlight">\(P[0],P[1],...P[k-1]\)</span> distinct values on the network,
 then the <strong>mixing matrix</strong> is matrix <span class="math notranslate nohighlight">\(M\)</span> such that <span class="math notranslate nohighlight">\(M[i][j]\)</span> represents the number of edges from
-nodes with property <span class="math notranslate nohighlight">\(P[i]\)</span> to <span class="math notranslate nohighlight">\(P[j]\)</span>.
+nodes with property <span class="math notranslate nohighlight">\(P[i]\)</span> to nodes with property <span class="math notranslate nohighlight">\(P[j]\)</span>.
 We can normalize mixing matrix by diving by total number of ordered edges i.e.
 <span class="math notranslate nohighlight">\( e = \frac{M}{|E|}\)</span>.</p>
 <p>Now define,</p>
@@ -531,7 +531,7 @@ We can normalize mixing matrix by diving by total number of ordered edges i.e.
 <p><span class="math notranslate nohighlight">\(b[i]=\)</span> proportion of edges <span class="math notranslate nohighlight">\((u,v)\)</span> such that <span class="math notranslate nohighlight">\(P(v)=P[i]\)</span></p>
 <div class="math notranslate nohighlight">
 \[ b[i] = \sum\limits_{j}e[j][i]\]</div>
-<p>in Python code it would look something like <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">e.sum(axis=0)</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">e.sum(axis=1)</span></code></p>
+<p>In Python code it would look something like <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">e.sum(axis=0)</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">e.sum(axis=1)</span></code></p>
 <p>Finally, let <span class="math notranslate nohighlight">\(\sigma_a\)</span> and <span class="math notranslate nohighlight">\(\sigma_b\)</span> represent the standard deviation of
 <span class="math notranslate nohighlight">\(\{\ P[i]\cdot a[i]\ |\ i \in 0...k-1\}\)</span> and <span class="math notranslate nohighlight">\(\{ P[i]\cdot b[i]\ |\ i \in 0...k-1\}\)</span>
 respectively.</p>
@@ -733,7 +733,7 @@ are drawn.</p>
 <aside class="footnote brackets" id="id6" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
 <span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
-<p>M. E. J. Newman, Mixing patterns in networks <a class="reference external" href="https://doi.org/10.1103/PhysRevE.67.026126">https://doi.org/10.1103/PhysRevE.67.026126</a></p>
+<p>M. E. J. Newman, Mixing patterns in networks <a class="reference external" href="https://arxiv.org/abs/cond-mat/0209450">https://arxiv.org/abs/cond-mat/0209450</a></p>
 </aside>
 <aside class="footnote brackets" id="id7" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">3</a><span class="fn-bracket">]</span></span>
