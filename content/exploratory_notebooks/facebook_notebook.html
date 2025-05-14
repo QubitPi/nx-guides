@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Facebook Network Analysis &#8212; NetworkX Notebooks</title>
   
@@ -15,42 +14,41 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/exploratory_notebooks/facebook_notebook';</script>
     <link rel="canonical" href="https://QubitPi.github.io/nx-guides/content/exploratory_notebooks/facebook_notebook.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="Sudoku and Graph coloring" href="../generators/sudoku.html" />
+    <link rel="next" title="Contributors Guide" href="../contributing.html" />
+    <link rel="prev" title="Sudoku and Graph Coloring" href="../generators/sudoku.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -60,19 +58,23 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -94,12 +96,20 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -114,9 +124,13 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../../index.html">
+  
   
   
   
@@ -126,12 +140,12 @@
       
     
     
-    <img src="../../_static/networkx_banner.svg" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../../_static/networkx_banner.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="../../_static/networkx_banner.svg" class="logo__image only-light" alt="NetworkX Notebooks - Home"/>
+    <script>document.write(`<img src="../../_static/networkx_banner.svg" class="logo__image only-dark" alt="NetworkX Notebooks - Home"/>`);</script>
   
   
 </a></div>
-        <div class="sidebar-primary-item"><ul class="navbar-icon-links navbar-nav"
+        <div class="sidebar-primary-item"><ul class="navbar-icon-links"
     aria-label="Icon Links">
         <li class="nav-item">
           
@@ -142,28 +156,44 @@
           
           
           
-          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github"></i></span>
-            <label class="sr-only">GitHub</label></a>
+          <a href="https://github.com/networkx/nx-guides/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../algorithms/assortativity/correlation.html">Node assortativity coefficients and correlation measures</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../algorithms/index.html">Algorithms</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/assortativity/correlation.html">Node Assortativity Coefficients and Correlation Measures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/dag/index.html">Directed Acyclic Graphs &amp; Topological Sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../algorithms/flow/dinitz_alg.html">Dinitz’s algorithm and its applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../algorithms/flow/dinitz_alg.html">Dinitz’s Algorithm and Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/lca/LCA.html">Lowest Common Ancestor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../algorithms/euler/euler.html">Euler’s Algorithm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../algorithms/isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../algorithms/isomorphism/index.html">Isomorphism</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/isomorphism/isomorphism.html">Isomorphism - How to find if two graphs are similar?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../algorithms/isomorphism/not_isomorphic.html">To be or not to be (isomorphic)</a></li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../generators/index.html">Graph Generators</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../generators/index.html">Graph Generators</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../generators/geometric.html">Geometric Generator Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../generators/sudoku.html">Sudoku and Graph coloring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators/sudoku.html">Sudoku and Graph Coloring</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Facebook Network Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributors Guide</a></li>
 </ul>
 
     </div>
@@ -179,7 +209,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -188,14 +218,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -220,14 +250,14 @@
       
       <li><a href="https://mybinder.org/v2/gh/networkx/nx-guides/main?urlpath=tree/site/content/exploratory_notebooks/facebook_notebook.md" target="_blank"
    class="btn btn-sm dropdown-item"
-   title="Launch onBinder"
+   title="Launch on Binder"
    data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
 <span class="btn__icon-container">
   
-    <img src="../../_static/images/logo_binder.svg">
+    <img alt="Binder logo" src="../../_static/images/logo_binder.svg">
   </span>
 <span class="btn__text-container">Binder</span>
 </a>
@@ -382,26 +412,28 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -422,6 +454,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-graph">Visualizing the graph</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-topological-attributes">Basic topological attributes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centrality-measures">Centrality measures</a><ul class="nav section-nav flex-column">
@@ -434,10 +468,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-effects">Clustering Effects</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bridges">Bridges</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assortativity">Assortativity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-communities">Network Communities</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-communities">Network Communities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -447,34 +479,35 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="facebook-network-analysis">
-<h1>Facebook Network Analysis<a class="headerlink" href="#facebook-network-analysis" title="Permalink to this heading">#</a></h1>
-<p>This notebook contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found in the <a class="reference external" href="http://snap.stanford.edu/data/ego-Facebook.html">stanford website</a>. Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:</p>
+<h1>Facebook Network Analysis<a class="headerlink" href="#facebook-network-analysis" title="Link to this heading">#</a></h1>
+<p>This notebook contains a social network analysis mainly executed with the library of NetworkX. In detail, the facebook circles (friends lists) of ten people will be examined and scrutinized in order to extract all kinds of valuable information. The dataset can be found at this link: <a class="reference external" href="http://snap.stanford.edu/data/ego-Facebook.html">Stanford Facebook Dataset</a>. Moreover, as known, a facebook network is undirected and has no weights because one user can become friends with another user just once. Looking at the dataset from a graph analysis perspective:</p>
 <ul class="simple">
 <li><p>Each node represents an anonymized facebook user that belongs to one of those ten friends lists.</p></li>
 <li><p>Each edge corresponds to the friendship of two facebook users that belong to this network. In other words, two users must become friends on facebook in order for them to be connected in the particular network.</p></li>
 </ul>
 <p>Note: Nodes <span class="math notranslate nohighlight">\(0, 107, 348, 414, 686, 698, 1684, 1912, 3437, 3980\)</span> are the ones whose friends list will be examined. That means that they are in the spotlight of this analysis. Those nodes are considered the <code class="docutils literal notranslate"><span class="pre">spotlight</span> <span class="pre">nodes</span></code></p>
-<ul class="simple">
-<li><p>Now, the necessary libraries are imported</p></li>
-</ul>
+<section id="import-packages">
+<h2>Import packages<a class="headerlink" href="#import-packages" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">randint</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>The edges are loaded from the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder and saved in a dataframe. Each edge is a new row and for each edge there is a <code class="docutils literal notranslate"><span class="pre">start_node</span></code> and an <code class="docutils literal notranslate"><span class="pre">end_node</span></code> column</p></li>
-</ul>
+</section>
+<section id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h2>
+<p>The edges are loaded from the <code class="docutils literal notranslate"><span class="pre">data</span></code> folder and saved in a dataframe. Each edge is a new row and for each edge there is a <code class="docutils literal notranslate"><span class="pre">start_node</span></code> and an <code class="docutils literal notranslate"><span class="pre">end_node</span></code> column</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">facebook</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
@@ -571,9 +604,7 @@ document.write(`
 <p>88234 rows × 2 columns</p>
 </div></div></div>
 </div>
-<ul class="simple">
-<li><p>The graph is created from the <code class="docutils literal notranslate"><span class="pre">facebook</span></code> dataframe of the edges:</p></li>
-</ul>
+<p>The graph is created from the <code class="docutils literal notranslate"><span class="pre">facebook</span></code> dataframe of the edges:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span><span class="n">facebook</span><span class="p">,</span> <span class="s2">&quot;start_node&quot;</span><span class="p">,</span> <span class="s2">&quot;end_node&quot;</span><span class="p">)</span>
@@ -581,8 +612,9 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 <section id="visualizing-the-graph">
-<h2>Visualizing the graph<a class="headerlink" href="#visualizing-the-graph" title="Permalink to this heading">#</a></h2>
+<h2>Visualizing the graph<a class="headerlink" href="#visualizing-the-graph" title="Link to this heading">#</a></h2>
 <p>Let’s start our exploration by visualizing the graph. Visualization plays a
 central role in exploratory data analysis to help get a qualitative feel for
 the data.</p>
@@ -599,7 +631,7 @@ functions.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/5ea58dd8a95038ba4ea99d217f3397056c63f747c53b36c96bebefb11b13c5dc.png" src="../../_images/5ea58dd8a95038ba4ea99d217f3397056c63f747c53b36c96bebefb11b13c5dc.png" />
+<img alt="../../_images/b10a7ce7bcd39cb5d27c7af5aa49efd17e56efd867fa03057a74d092959e3bc4.png" src="../../_images/b10a7ce7bcd39cb5d27c7af5aa49efd17e56efd867fa03057a74d092959e3bc4.png" />
 </div>
 </div>
 <p>The resulting image is… not very useful. Graph visualizations of this kind
@@ -626,7 +658,7 @@ visualizations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/df97287f3c76758d39b31b2efbcb6d03150f00b4587cba99d638fe3837960093.png" src="../../_images/df97287f3c76758d39b31b2efbcb6d03150f00b4587cba99d638fe3837960093.png" />
+<img alt="../../_images/85d962480d37dee81e30e18b7fa4d998b251ae38ef1a1426f1984f300edecbb9.png" src="../../_images/85d962480d37dee81e30e18b7fa4d998b251ae38ef1a1426f1984f300edecbb9.png" />
 </div>
 </div>
 <p>This visualization is much more useful than the previous one! Already we can
@@ -635,13 +667,11 @@ nodes seem to be highly connected, as we might expect for a social network.
 We also get a sense that the nodes tend to form clusters. The <code class="docutils literal notranslate"><span class="pre">spring_layout</span></code>
 serves to give a qualitative sense of clustering, but it is not designed for
 repeatable, qualitative clustering analysis. We’ll revisit evaluating
-network clustering <a class="reference internal" href="#clustering-effects"><span class="std std-doc">later in the analysis</span></a></p>
+network clustering <a class="reference internal" href="#clustering-effects">later in the analysis</a></p>
 </section>
 <section id="basic-topological-attributes">
-<h2>Basic topological attributes<a class="headerlink" href="#basic-topological-attributes" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Total number of nodes in network:</p></li>
-</ul>
+<h2>Basic topological attributes<a class="headerlink" href="#basic-topological-attributes" title="Link to this heading">#</a></h2>
+<p>Total number of nodes in network:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
@@ -654,9 +684,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>Total number of edges:</p></li>
-</ul>
+<p>Total number of edges:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span>
@@ -681,7 +709,7 @@ network clustering <a class="reference internal" href="#clustering-effects"><spa
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>43.69101262688784
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(43.69101262688784)
 </pre></div>
 </div>
 </div>
@@ -765,7 +793,7 @@ we’ve already computed:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.691592636562027
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(3.691592636562027)
 </pre></div>
 </div>
 </div>
@@ -807,14 +835,12 @@ lengths from our pre-computed dict-of-dicts:</p>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Frequency (%)&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/67777c86601e168a4c86d7a2550de38ec143b1645136fad2d9353a3f9e4429eb.png" src="../../_images/67777c86601e168a4c86d7a2550de38ec143b1645136fad2d9353a3f9e4429eb.png" />
+<img alt="../../_images/9c5706f97bf598b3e50f4fd112a1c76e69ec40bae69fa918ea3bc58687080ca1.png" src="../../_images/9c5706f97bf598b3e50f4fd112a1c76e69ec40bae69fa918ea3bc58687080ca1.png" />
 </div>
 </div>
 <p>The majority of the shortest path lengths are from <span class="math notranslate nohighlight">\(2\)</span> to <span class="math notranslate nohighlight">\(5\)</span> edges long.
 Also, it’s highly unlikely for a pair of nodes to have a shortest path of length 8 (diameter length) as the likelihood is less than <span class="math notranslate nohighlight">\(0.1\)</span>%.</p>
-<ul class="simple">
-<li><p>The graph’s density is calculated here. Clearly, the graph is a very sparse one as: <span class="math notranslate nohighlight">\(density &lt; 1\)</span></p></li>
-</ul>
+<p>The graph’s density is calculated here. Clearly, the graph is a very sparse one as: <span class="math notranslate nohighlight">\(density &lt; 1\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">density</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
@@ -827,9 +853,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 </div>
-<ul class="simple">
-<li><p>The graph’s number of components are found below. As expected, the network consists of one giant compoenent:</p></li>
-</ul>
+<p>The graph’s number of components are found below. As expected, the network consists of one giant component:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nx</span><span class="o">.</span><span class="n">number_connected_components</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
@@ -844,10 +868,10 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </section>
 <section id="centrality-measures">
-<h2>Centrality measures<a class="headerlink" href="#centrality-measures" title="Permalink to this heading">#</a></h2>
+<h2>Centrality measures<a class="headerlink" href="#centrality-measures" title="Link to this heading">#</a></h2>
 <p>Now the centrality measures will be examined for the facebook graph</p>
 <section id="degree-centrality">
-<h3>Degree Centrality<a class="headerlink" href="#degree-centrality" title="Permalink to this heading">#</a></h3>
+<h3>Degree Centrality<a class="headerlink" href="#degree-centrality" title="Link to this heading">#</a></h3>
 <p>Degree centrality assigns an importance score based simply on the number of links held by each node. In this analysis, that means that the higher the degree centrality of a node is, the more edges are connected to the particular node and thus the more neighbor nodes (facebook friends) this node has. In fact, the degree of centrality of a node is the fraction of nodes it is connected to. In other words, it is the percentage of the network that the particular node is connected to meaning being friends with.</p>
 <ul class="simple">
 <li><p>Starting, we find the nodes with the highest degree centralities. Specifically, the nodes with the 8 highest degree centralities are shown below together with the degree centrality:</p></li>
@@ -914,7 +938,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/6c0df2b6da7ec3b55b2fcac93c9b21d20803b90bdf4590663666bf65d3b98022.png" src="../../_images/6c0df2b6da7ec3b55b2fcac93c9b21d20803b90bdf4590663666bf65d3b98022.png" />
+<img alt="../../_images/5e4017c07e3edf6c68e6d22a43c252c1d05bab9994fe35850e2cb9d3e7e3541e.png" src="../../_images/5e4017c07e3edf6c68e6d22a43c252c1d05bab9994fe35850e2cb9d3e7e3541e.png" />
 </div>
 </div>
 <p>It is visible that the vast majority of facebook users have degree centralities of less than <span class="math notranslate nohighlight">\(0.05\)</span>. In fact the majority has less than <span class="math notranslate nohighlight">\(0.0125\)</span>. Actually, that makes sense because the network consists of friends lists of particular nodes, which are obviously the ones with the highest degree centralities. In other words, because only the friends list of particular nodes were used to create this particular network, plenty of nodes have extremely low degree centralities as they are not very interconnected in this network</p>
@@ -931,18 +955,18 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
- 1.1078363832831382,
- -1.164599134027958,
- 0.7322099342942238)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(-0.9991946166753769),
+ np.float64(1.1078343337774277),
+ np.float64(-1.1645995157957079),
+ np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/23e15cdb058e67330fa1b0164dcb8c61904a657725456dddbb5948130717686e.png" src="../../_images/23e15cdb058e67330fa1b0164dcb8c61904a657725456dddbb5948130717686e.png" />
+<img alt="../../_images/b9927f3ebe269b749c5d364173b3d21268ae7d13d2e1de07e69384712eedf922.png" src="../../_images/b9927f3ebe269b749c5d364173b3d21268ae7d13d2e1de07e69384712eedf922.png" />
 </div>
 </div>
 </section>
 <section id="betweenness-centrality">
-<h3>Betweenness Centrality<a class="headerlink" href="#betweenness-centrality" title="Permalink to this heading">#</a></h3>
+<h3>Betweenness Centrality<a class="headerlink" href="#betweenness-centrality" title="Link to this heading">#</a></h3>
 <p>Betweenness centrality measures the number of times a node lies on the shortest path between other nodes, meaning it acts as a bridge. In detail, betweenness centrality of a node <span class="math notranslate nohighlight">\(v\)</span> is the percentage of all the shortest paths of any two nodes (apart from <span class="math notranslate nohighlight">\(v\)</span>), which pass through <span class="math notranslate nohighlight">\(v\)</span>. Specifically, in the facebook graph this measure is associated with the user’s ability to influence others. A user with a high betweenness centrality acts as a bridge to many users that are not friends and thus has the ability to influence them by conveying information (e.g. by posting something or sharing a post) or even connect them via the user’s circle (which would reduce the user’s betweeness centrality after).</p>
 <ul class="simple">
 <li><p>Now, the nodes with the <span class="math notranslate nohighlight">\(8\)</span> highest betweenness centralities will be calculated and shown with their centrality values:</p></li>
@@ -991,7 +1015,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/5dd0f8454a9a22587a0c164b15e32e8590780eed5f18f5ea0ceeb4b9d969c15b.png" src="../../_images/5dd0f8454a9a22587a0c164b15e32e8590780eed5f18f5ea0ceeb4b9d969c15b.png" />
+<img alt="../../_images/528bb29904a403ad9965e8b0af33577772634384a50bd089f61fbdecc2c4ad1c.png" src="../../_images/528bb29904a403ad9965e8b0af33577772634384a50bd089f61fbdecc2c4ad1c.png" />
 </div>
 </div>
 <p>As we can see, the vast majority of betweenness centralities is below <span class="math notranslate nohighlight">\(0.01\)</span>. That makes sense as the graph is very sparse and thus most nodes do not act as bridges in shortest paths. However, that also results in some nodes having extremely high betweenness centralities as for example node <span class="math notranslate nohighlight">\(107\)</span> with <span class="math notranslate nohighlight">\(0.48\)</span> and node <span class="math notranslate nohighlight">\(1684\)</span> with <span class="math notranslate nohighlight">\(0.34\)</span> betweenness centrality.</p>
@@ -1008,18 +1032,18 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
- 1.1078363832831382,
- -1.164599134027958,
- 0.7322099342942238)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(-0.9991946166753769),
+ np.float64(1.1078343337774277),
+ np.float64(-1.1645995157957079),
+ np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/3024fc0ff1e8094b9dab4c0a951b8eff1cd88ba291697be41ada394836e22ed3.png" src="../../_images/3024fc0ff1e8094b9dab4c0a951b8eff1cd88ba291697be41ada394836e22ed3.png" />
+<img alt="../../_images/45262febadf3c4f8b37f524202b019be0da09ccd539b4e7b9548326f59e350e5.png" src="../../_images/45262febadf3c4f8b37f524202b019be0da09ccd539b4e7b9548326f59e350e5.png" />
 </div>
 </div>
 </section>
 <section id="closeness-centrality">
-<h3>Closeness Centrality<a class="headerlink" href="#closeness-centrality" title="Permalink to this heading">#</a></h3>
+<h3>Closeness Centrality<a class="headerlink" href="#closeness-centrality" title="Link to this heading">#</a></h3>
 <p>Closeness centrality scores each node based on their ‘closeness’ to all other nodes in the network. For a node <span class="math notranslate nohighlight">\(v\)</span>, its closeness centrality measures the average farness to all other nodes. In other words, the higher the closeness centrality of <span class="math notranslate nohighlight">\(v\)</span>, the closer it is located to the center of the network.</p>
 <p>The closeness centrality measure is very important for the monitoring of the spread of false information (e.g. fake news) or viruses (e.g. malicious links that gain control of the facebook account in this case). Let’s examine the example of fake news. If the user with the highest closeness centrality measure started spreading some fake news information (sharing or creating a post), the whole network would get missinformed the quickest possible. However, if a user with very low closeness centrality would try the same, the spread of the missinformation to the whole network would be much slower. That is because the false information would have to firstly reach a user with high closeness centrality that would spread it to many different parts of the network.</p>
 <ul class="simple">
@@ -1079,7 +1103,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/5f161b98800cec114b39b61140403c6b006638d8215ddf58444b3590203f731c.png" src="../../_images/5f161b98800cec114b39b61140403c6b006638d8215ddf58444b3590203f731c.png" />
+<img alt="../../_images/69c144c7efc030f11aca2e2a6bd5efe8556c7dcb92ea1ceadca4472aadf7270e.png" src="../../_images/69c144c7efc030f11aca2e2a6bd5efe8556c7dcb92ea1ceadca4472aadf7270e.png" />
 </div>
 </div>
 <p>The closeness centralities are distributed over various values from <span class="math notranslate nohighlight">\(0.17\)</span> to <span class="math notranslate nohighlight">\(0.46\)</span>. In fact, the majority of them are found between <span class="math notranslate nohighlight">\(0.25\)</span> and <span class="math notranslate nohighlight">\(0.3\)</span>. That means that the majority of nodes are relatively close to the center of the network and thus close to other nodes in general. However, there are some communities that are located further away, whose nodes would have the minimum closeness centralities, as seen below:</p>
@@ -1095,18 +1119,18 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
- 1.1078363832831382,
- -1.164599134027958,
- 0.7322099342942238)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(-0.9991946166753769),
+ np.float64(1.1078343337774277),
+ np.float64(-1.1645995157957079),
+ np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/855ebcf94beef98211c6ebbbd7bca3cc514e035e38dc93f18520fa0cf55cb5ca.png" src="../../_images/855ebcf94beef98211c6ebbbd7bca3cc514e035e38dc93f18520fa0cf55cb5ca.png" />
+<img alt="../../_images/d97b53324386debddc0f52bd54d35d81e7558a6ec9507a38a18afeebe8c85327.png" src="../../_images/d97b53324386debddc0f52bd54d35d81e7558a6ec9507a38a18afeebe8c85327.png" />
 </div>
 </div>
 </section>
 <section id="eigenvector-centrality">
-<h3>Eigenvector Centrality<a class="headerlink" href="#eigenvector-centrality" title="Permalink to this heading">#</a></h3>
+<h3>Eigenvector Centrality<a class="headerlink" href="#eigenvector-centrality" title="Link to this heading">#</a></h3>
 <p>Eigenvector centrality is the metric to show how connected a node is to other important nodes in the network. It measures a node’s influence based on how well it is connected inside the network and how many links its connections have and so on. This measure can identify the nodes with the most influence over the whole network. A high eigenvector centrality means that the node is connected to other nodes who themselves have high eigenvector centralities. In this facebook analysis, the measure is associated with the users ability to influence the whole graph and thus the users with the highest eigenvector centralities are the most important nodes in this network.</p>
 <ul class="simple">
 <li><p>The nodes with the highest eigenvector centralities will be examined now:</p></li>
@@ -1126,10 +1150,10 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
  (2206, 0.08605239270584342),
  (2233, 0.08517340912756598),
  (2464, 0.08427877475676092),
- (2142, 0.08419311897991796),
+ (2142, 0.08419311897991795),
  (2218, 0.0841557356805503),
- (2078, 0.08413617041724979),
- (2123, 0.08367141238206226),
+ (2078, 0.08413617041724977),
+ (2123, 0.08367141238206224),
  (1993, 0.0835324284081597)]
 </pre></div>
 </div>
@@ -1180,7 +1204,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/297b76036cce3111af0d6a211a6345afab10311e0aa35eea64c07f08767a0ce1.png" src="../../_images/297b76036cce3111af0d6a211a6345afab10311e0aa35eea64c07f08767a0ce1.png" />
+<img alt="../../_images/cd715baca0a9028516da9109f8d401d7e9aea0abb270a4407a15e3af45d83015.png" src="../../_images/cd715baca0a9028516da9109f8d401d7e9aea0abb270a4407a15e3af45d83015.png" />
 </div>
 </div>
 <p>As shown in the distribution histogram, the vast majority of eigenvector centralities are below <span class="math notranslate nohighlight">\(0.005\)</span> and are actually almost <span class="math notranslate nohighlight">\(0\)</span>. However, we can also see different values of eigenvector centralities as there are tiny bins all over the x axis.</p>
@@ -1197,19 +1221,19 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
- 1.1078363832831382,
- -1.164599134027958,
- 0.7322099342942238)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(-0.9991946166753769),
+ np.float64(1.1078343337774277),
+ np.float64(-1.1645995157957079),
+ np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/86eac88ba08bc02f127c70b3f10d4b84c3518e4c9588909552fc6cbab06454f9.png" src="../../_images/86eac88ba08bc02f127c70b3f10d4b84c3518e4c9588909552fc6cbab06454f9.png" />
+<img alt="../../_images/064b5f801994335ae3025bf57e43399f747be9f34ea507914a5a20db7979fb00.png" src="../../_images/064b5f801994335ae3025bf57e43399f747be9f34ea507914a5a20db7979fb00.png" />
 </div>
 </div>
 </section>
 </section>
 <section id="clustering-effects">
-<h2>Clustering Effects<a class="headerlink" href="#clustering-effects" title="Permalink to this heading">#</a></h2>
+<h2>Clustering Effects<a class="headerlink" href="#clustering-effects" title="Link to this heading">#</a></h2>
 <p>The clustering coefficient of a node <span class="math notranslate nohighlight">\(v\)</span> is defined as the probability that two randomly selected friends of <span class="math notranslate nohighlight">\(v\)</span> are friends with each other. As a result, the average clustering coefficient is the average of clustering coefficients of all the nodes. The closer the average clustering coefficient is to <span class="math notranslate nohighlight">\(1\)</span>, the more complete the graph will be because there’s just one giant component. Lastly, it is a sign of triadic closure because the more complete the graph is, the more triangles will usually arise.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1218,7 +1242,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6055467186200876
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6055467186200862
 </pre></div>
 </div>
 </div>
@@ -1238,7 +1262,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Counts&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/a8478136f33902f80233c9b81959bd2b3712e591207ae903c35c45dc5f129f90.png" src="../../_images/a8478136f33902f80233c9b81959bd2b3712e591207ae903c35c45dc5f129f90.png" />
+<img alt="../../_images/1ece27e1bfbffa2ad2bd5ceda400958c8f044765c34899ef80f4018d461ee881.png" src="../../_images/1ece27e1bfbffa2ad2bd5ceda400958c8f044765c34899ef80f4018d461ee881.png" />
 </div>
 </div>
 <p><span class="math notranslate nohighlight">\(50\)</span> bins were used to showcase the distribution. The bin with the highest counts concerns nodes with clustering coefficient close to <span class="math notranslate nohighlight">\(1\)</span> as there are more than two-hundred-fifty nodes in that bin. In addition, the bins of clustering coefficient between <span class="math notranslate nohighlight">\(0.4\)</span> and <span class="math notranslate nohighlight">\(0.8\)</span> contain the majority of nodes by far.</p>
@@ -1266,7 +1290,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1197.3334983906907
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(1197.3334983906907)
 </pre></div>
 </div>
 </div>
@@ -1279,7 +1303,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>161.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>np.float64(161.0)
 </pre></div>
 </div>
 </div>
@@ -1289,7 +1313,7 @@ Also, it’s highly unlikely for a pair of nodes to have a shortest path of leng
 node <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span>,  some tension builds up if <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span> are not friends with each other.</p>
 </section>
 <section id="bridges">
-<h2>Bridges<a class="headerlink" href="#bridges" title="Permalink to this heading">#</a></h2>
+<h2>Bridges<a class="headerlink" href="#bridges" title="Link to this heading">#</a></h2>
 <p>First of all, an edge joining two nodes A and B in the graph is considered a bridge, if deleting the edge would cause A and B to lie in two different components. Now it is checked if there are any bridges in this network:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1352,18 +1376,18 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.9991880235075951,
- 1.1078363832831382,
- -1.164599134027958,
- 0.7322099342942238)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(-0.9991946166753769),
+ np.float64(1.1078343337774277),
+ np.float64(-1.1645995157957079),
+ np.float64(0.7322139519453049))
 </pre></div>
 </div>
-<img alt="../../_images/09f35175687867667c94439311f6bb0750f5fbaa62f92e6e3a620fc558c18913.png" src="../../_images/09f35175687867667c94439311f6bb0750f5fbaa62f92e6e3a620fc558c18913.png" />
+<img alt="../../_images/f914ea6976eb8716f3d988d1c4b6e636fe4198dd5770e79561e96af26c7cd370.png" src="../../_images/f914ea6976eb8716f3d988d1c4b6e636fe4198dd5770e79561e96af26c7cd370.png" />
 </div>
 </div>
 </section>
 <section id="assortativity">
-<h2>Assortativity<a class="headerlink" href="#assortativity" title="Permalink to this heading">#</a></h2>
+<h2>Assortativity<a class="headerlink" href="#assortativity" title="Link to this heading">#</a></h2>
 <p>Assortativity describes the preference for a network’s nodes to attach to others that are similar in some way.</p>
 <ul class="simple">
 <li><p>The assortativity in terms of nodes degrees is found with two ways:</p></li>
@@ -1389,7 +1413,7 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.06357722918564915
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.06357722918564918
 </pre></div>
 </div>
 </div>
@@ -1398,11 +1422,9 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 <p>In our case the assortativity coefficient is around <span class="math notranslate nohighlight">\(0.064\)</span>, which is almost 0. That means that the network is almost non-assortative, and we cannot correlate linked nodes based on their degrees. In other words, we can not draw conclusions on the number of friends of a user from his/her friends’ number of friends (friends degree). That makes sense since we only use the friends list of spotlight nodes, non spotlight nodes will tend to have much fewer friends.</p>
 </section>
 <section id="network-communities">
-<h2>Network Communities<a class="headerlink" href="#network-communities" title="Permalink to this heading">#</a></h2>
+<h2>Network Communities<a class="headerlink" href="#network-communities" title="Link to this heading">#</a></h2>
 <p>A community is a group of nodes, so that nodes inside the group are connected with many more edges than between groups. Two different algorithms will be used for communities detection in this network</p>
-<ul class="simple">
-<li><p>Firstly, a semi-synchronous label propagation method<a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is used to detect the communities.</p></li>
-</ul>
+<p>Firstly, a semi-synchronous label propagation method <a class="footnote-reference brackets" href="#id3" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> is used to detect the communities.</p>
 <p>This function determines by itself the number of communities that will be detected. Now the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community. Also, the number of communities is printed:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1437,11 +1459,11 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/bcb1f4df4b00ee68a94e37928c31d5130c0992aed393bf9eff8c2eb42f84a3cd.png" src="../../_images/bcb1f4df4b00ee68a94e37928c31d5130c0992aed393bf9eff8c2eb42f84a3cd.png" />
+<img alt="../../_images/d2e022e181b60621b067beb996fc212f58bc800f127056cdd5d9161b2be1d215.png" src="../../_images/d2e022e181b60621b067beb996fc212f58bc800f127056cdd5d9161b2be1d215.png" />
 </div>
 </div>
 <ul class="simple">
-<li><p>Next, the asynchronous fluid communities algorithm is used.</p></li>
+<li><p>Next, the asynchronous fluid communities algorithm <a class="footnote-reference brackets" href="#id4" id="id2" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a> is used.</p></li>
 </ul>
 <p>With this function, we can decide the number of communities to be detected. Let’s say that <span class="math notranslate nohighlight">\(8\)</span> communities is the number we want. Again, the communities will be iterated through and a colors list will be created to contain the same color for nodes that belong to the same community.</p>
 <div class="cell docutils container">
@@ -1467,21 +1489,25 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/897110d02292fd2fe21b391d1002dce921a180cac63092a085f2285f627e6e08.png" src="../../_images/897110d02292fd2fe21b391d1002dce921a180cac63092a085f2285f627e6e08.png" />
+<img alt="../../_images/c411099f40e9b392f640b2e0e6f8c9d8b4174cf78ca6be5cd08c4ae3ee9f932c.png" src="../../_images/c411099f40e9b392f640b2e0e6f8c9d8b4174cf78ca6be5cd08c4ae3ee9f932c.png" />
 </div>
 </div>
+</section>
 <section id="references">
-<h3>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h3>
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
 <p><a class="reference external" href="https://cambridge-intelligence.com/keylines-faqs-social-network-analysis/#:~:text=Centrality%20measures%20are%20a%20vital,but%20they%20all%20work%20differently.">Cambridge-intelligence</a></p>
+</section>
+</section>
 <aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id2" role="note">
+<aside class="footnote brackets" id="id3" role="doc-footnote">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
 <p><a class="reference external" href="https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.label_propagation.label_propagation_communities.html#networkx.algorithms.community.label_propagation.label_propagation_communities">Semi-synchronous label propagation</a></p>
 </aside>
+<aside class="footnote brackets" id="id4" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">2</a><span class="fn-bracket">]</span></span>
+<p><a class="reference external" href="https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.community.asyn_fluid.asyn_fluidc.html#networkx.algorithms.community.asyn_fluid.asyn_fluidc">Asynchronous fluid communities algorithm</a></p>
 </aside>
-</section>
-</section>
-</section>
+</aside>
 
 
                 </article>
@@ -1489,11 +1515,10 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer d-print-none">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="../generators/sudoku.html"
@@ -1501,13 +1526,19 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Sudoku and Graph coloring</p>
+        <p class="prev-next-title">Sudoku and Graph Coloring</p>
       </div>
     </a>
-</div></div>
-  
+    <a class="right-next"
+       href="../contributing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Contributors Guide</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
-
                 </footer>
               
             </div>
@@ -1516,12 +1547,15 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-packages">Import packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-the-graph">Visualizing the graph</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-topological-attributes">Basic topological attributes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centrality-measures">Centrality measures</a><ul class="nav section-nav flex-column">
@@ -1534,10 +1568,8 @@ in a graph is a local bridge, if its endpoints <span class="math notranslate noh
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-effects">Clustering Effects</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bridges">Bridges</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#assortativity">Assortativity</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-communities">Network Communities</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#network-communities">Network Communities</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 
@@ -1559,9 +1591,10 @@ By NetworkX developers
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022, NetworkX developers.
+      © Copyright 2025, NetworkX developers.
       <br/>
     
   </p>
@@ -1585,8 +1618,8 @@ By NetworkX developers
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
