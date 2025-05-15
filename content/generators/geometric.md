@@ -350,18 +350,18 @@ fig.tight_layout()
 
 ## References
 
-[^1]: Spatial Networks <https://doi.org/10.1016/j.physrep.2010.11.002>
+[^1]: Spatial Networks <https://arxiv.org/abs/1010.0302>
 
-[^2]: Random Geometric Graphs <https://doi.org/10.1103/PhysRevE.66.016121>
+[^2]: Random Geometric Graphs <https://arxiv.org/abs/cond-mat/0203026>
 
 [^3]: Unit Disk Graphs <https://doi.org/10.1016/0012-365X(90)90358-O>
 
-[^4]: Waxman Graphs <https://doi.org/10.1109/49.12889>
+[^4]: Waxman Graphs <https://openscholarship.wustl.edu/cgi/viewcontent.cgi?article=1796&context=cse_research>
 
 [^6]: Threshold Graphs - <https://doi.org/10.37236/219>
 
 [^7]: Soft Geometric Random Graphs - <https://doi.org/10.1214/15-AAP1110>
 
-[^8]: Geometric Threshold Graphs - <https://doi.org/10.1103/PhysRevE.71.036108>
+[^8]: Geometric Threshold Graphs - <https://arxiv.org/abs/cond-mat/0409378>
 
 [^9]: Thresholded Random Geometric Graphs - <http://hdl.handle.net/2117/111425>
